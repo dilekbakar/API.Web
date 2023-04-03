@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family:'Poppins', sans-serif;
+            }
+            
+            body{
+                background: #fff;
+            }
+            .input{
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%);              
+                transition: all 0.3s ease;
+             
+                 color:#000;   
+                 border: 1px solid transparent;
+                 border-radius: 5px;
+          
+            }
+            .start_btn{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.2),
+                0px 6px 20px 0 rgba(0,0,0,0.19);
+                transition: all 0.3s ease;
+            }
+            .start_btn button{
+                 font-size: 25px;
+                 font-weight: 500;
+                 color:#fff;
+                 padding: 15px 30px;
+                 outline: none;
+                 border: none;
+                 border-radius: 5px;
+                 background:brown;
+                 cursor: pointer;
+            }
+            
+            </style>
+    </head>
+    <body>
+        <input type="text" id="firstName" placeholder="adınız">
+        <input type="text" id="lastName" placeholder="soyadınız">
+        <div class="start_btn"><button>Gönder</button> </div>
+
+
+
+        <script>
+            document.querySelector(".start_btn").addEventListener("click",function(){
+               var firstName= document.querySelector("#firstName").value;
+               var lastName= document.querySelector("#lastName").value;
+               $.ajax({
+                url: `https://localhost:44315/api/data/gettoken?ad=${firstName}&soyad=${lastName}`,
+                type: 'GET',
+                dataType: "json",
+                success: function (response) {
+                    if(localStorage.getItem('token')){}else{localStorage.removeItem('token')}
+                    localStorage.setItem('token',JSON.stringify(response))
+                }
+                });
+            })
+        </script>
+    </body>
+
+</html>
